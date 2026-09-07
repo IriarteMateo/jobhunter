@@ -1,0 +1,66 @@
+╭──────────────────────────────────────────────────────────────╮
+│                    A I   J O B   H U N T E R                 │
+╰──────────────────────────────────────────────────────────────╯
+
+  INSTALACIÓN — un solo paso
+
+
+  1. Abrí la app "Terminal"
+     (apretá Command + barra espaciadora, escribí Terminal, Enter)
+
+
+  2. Copiá y pegá ESTA LÍNEA COMPLETA, y apretá Enter:
+
+
+Z=$(ls -t ~/Downloads/jobhunter*.zip ~/Desktop/jobhunter*.zip 2>/dev/null|head -1); unzip -oq "$Z" -d ~/Desktop && cd ~/Desktop/jobhunter-para-compartir && xattr -dr com.apple.quarantine . && ./INSTALAR.sh
+
+
+  Listo. No hay que hacer nada más. Eso:
+
+     · descomprime todo y saca el bloqueo de macOS
+     · instala el motor de búsqueda y la interfaz
+     · BUSCA EMPLEOS POR PRIMERA VEZ (más de 70 fuentes reales)
+     · programa la búsqueda automática de las 07:30
+     · abre la app sola en el navegador
+
+  Tarda entre 5 y 10 minutos. Podés dejarlo corriendo y hacer otra cosa.
+
+  Cuando termine se abre solo en:
+
+      http://localhost:3000
+
+      ← el ":3000" es obligatorio, sin eso no carga
+
+
+  Para cerrar la app: Control + C en la ventana de Terminal.
+  Para volver a abrirla más adelante:
+
+      cd ~/Desktop/jobhunter-para-compartir && ./start.sh
+
+
+────────────────────────────────────────────────────────────────
+  SI DICE "command not found: python3"  o  "node"
+────────────────────────────────────────────────────────────────
+
+  Faltan estos dos programas:
+
+     Python   →  https://www.python.org/downloads/
+     Node.js  →  https://nodejs.org/
+
+  Instalá los dos, cerrá la Terminal, abrila de nuevo y volvé a pegar
+  la línea de arriba.
+
+────────────────────────────────────────────────────────────────
+  ¿POR QUÉ NO ALCANZA CON HACER DOBLE CLIC?
+────────────────────────────────────────────────────────────────
+
+  Porque macOS bloquea los instaladores que llegan por WhatsApp o mail
+  y dice que están "dañados". No están dañados: es una protección.
+
+  Desde la Terminal no hay bloqueo, por eso este es el camino.
+  (El "xattr" de la línea es justamente lo que saca esa marca.)
+
+────────────────────────────────────────────────────────────────
+
+  Más detalle en SETUP.md
+  Si vas a tocar el código con Claude, leé CLAUDE.md

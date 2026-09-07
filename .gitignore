@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Base de datos local
+*.db
+*.db-wal
+*.db-shm
+
+# Entorno
+.env
+.env.local
+!.env.example
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Registros y locks de la corrida diaria
+logs/
+*.log
+.daily.lock
+.pipeline.lock
+
+# Sistema
+.DS_Store

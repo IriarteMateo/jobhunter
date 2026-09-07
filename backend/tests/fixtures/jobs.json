@@ -1,0 +1,100 @@
+[
+  {
+    "id": "graduate_program_target",
+    "title": "Graduate Program - Business Analyst",
+    "company": "Empresa Multinacional A",
+    "location": "Vicente López, Buenos Aires, Argentina",
+    "remote_hint": "hybrid",
+    "description": "Buscamos jóvenes profesionales recién graduados para nuestro Graduate Program.\nRequisitos:\nGraduado de carreras de negocios, economía o afines\nInglés avanzado excluyente\nExcel avanzado\n\nDeseable:\nConocimientos de SQL\nAlemán es un plus para trabajar con nuestros equipos en Alemania\n\nNo se requiere experiencia laboral previa. Ofrecemos plan de carrera, mentoring y rotación por distintas áreas.",
+    "expect": {
+      "seniority": "Graduate",
+      "eligible": true,
+      "german_min": 50,
+      "location_min": 90
+    }
+  },
+  {
+    "id": "senior_disguised",
+    "title": "Business Analyst",
+    "company": "Consultora B",
+    "location": "CABA, Argentina",
+    "remote_hint": "onsite",
+    "description": "Requisitos:\nMínimo 5 años de experiencia como Business Analyst. Excluyente.\nInglés avanzado.\nExperiencia liderando equipos.",
+    "expect": {
+      "seniority": "Senior",
+      "eligible": false
+    }
+  },
+  {
+    "id": "internship_enrolled_only",
+    "title": "Pasantía en Marketing Digital",
+    "company": "Empresa C",
+    "location": "Martínez, Buenos Aires",
+    "remote_hint": "onsite",
+    "description": "Programa de pasantías. Debe ser estudiante regular con al menos 2 años de cursada restantes. Certificado de alumno regular obligatorio.",
+    "expect": {
+      "seniority": "Internship",
+      "eligible": false
+    }
+  },
+  {
+    "id": "german_speaker_remote",
+    "title": "German Speaking Customer Experience Analyst",
+    "company": "Scaleup D",
+    "location": "Remote - LATAM",
+    "remote_hint": "remote",
+    "description": "We are looking for a fluent German speaker to support our DACH customers. German is required. Advanced English is required. No previous professional experience needed, we train you. Entry level position.",
+    "expect": {
+      "seniority": "Entry Level",
+      "eligible": true,
+      "german_min": 100
+    }
+  },
+  {
+    "id": "preferred_not_required",
+    "title": "Junior Product Analyst",
+    "company": "Fintech E",
+    "location": "Buenos Aires, Argentina",
+    "remote_hint": "hybrid",
+    "description": "Sobre el rol: vas a trabajar con el equipo de producto en roadmap, métricas y product discovery.\nRequisitos:\nGraduado o próximo a graduarse de carreras de negocios\nInglés intermedio\n\nDeseable:\n2 years of experience preferred\nPower BI deseable\nSQL deseable",
+    "expect": {
+      "seniority": "Junior",
+      "eligible": true,
+      "nota": "§51: una preferencia no es filtro duro. En modo estricto la candidata SÍ pidió descartarlo (test aparte)."
+    },
+    "policy": "balanced"
+  },
+  {
+    "id": "commission_only_scam",
+    "title": "Asesor Comercial Independiente",
+    "company": "Empresa F",
+    "location": "CABA",
+    "remote_hint": "remote",
+    "description": "Trabajá desde casa ganando ingresos ilimitados. Esquema 100% comisión, sin sueldo básico. Emprendedor independiente. Sumate a nuestro equipo de networking multinivel.",
+    "expect": {
+      "eligible": false
+    }
+  },
+  {
+    "id": "software_engineer",
+    "title": "Software Engineer",
+    "company": "Tech G",
+    "location": "Buenos Aires, Argentina",
+    "remote_hint": "remote",
+    "description": "We are looking for a backend engineer. Requirements: 3 years of experience with Python and distributed systems. Strong computer science fundamentals required.",
+    "expect": {
+      "eligible": false
+    }
+  },
+  {
+    "id": "duplicate_of_graduate",
+    "title": "Graduate Program — Business Analyst (Remote)",
+    "company": "EMPRESA MULTINACIONAL A S.A.",
+    "location": "Vicente Lopez, Buenos Aires",
+    "remote_hint": "hybrid",
+    "description": "Buscamos jóvenes profesionales recién graduados para nuestro Graduate Program.",
+    "expect": {
+      "duplicate_of": "graduate_program_target"
+    }
+  }
+]
