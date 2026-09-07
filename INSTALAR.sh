@@ -102,7 +102,7 @@ echo
 echo "  → http://localhost:3000"
 echo
 echo "  Para cerrarla: Control + C en esta ventana."
-echo "  Para abrirla otro día:  cd ~/Desktop/$(basename "$ROOT") && ./start.sh"
+echo "  Para abrirla otro día:  cd \"$ROOT\" && ./start.sh"
 echo
 ( sleep 9; open "http://localhost:3000" >/dev/null 2>&1 ) &
 exec ./start.sh
