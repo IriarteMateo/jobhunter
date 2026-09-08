@@ -24,8 +24,10 @@ if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ] || [ -f .git/MERGE_HEAD 
   decir "hay un merge o rebase a medias: no toco nada"; exit 0
 fi
 
-# Cambios locales sin guardar: se respetan. Actualizar encima los perdería.
-if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+# Cambios locales sin guardar: se respetan, actualizar encima los perdería.
+# --untracked-files=no a propósito: un .DS_Store o una captura guardada en la
+# carpeta no son motivo para dejar de recibir mejoras nunca más.
+if [ -n "$(git status --porcelain --untracked-files=no 2>/dev/null)" ]; then
   decir "hay cambios locales sin commitear: no actualizo para no pisarlos"; exit 0
 fi
 
