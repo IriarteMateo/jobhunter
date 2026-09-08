@@ -42,9 +42,17 @@ DESPUES=$(git rev-parse "origin/$RAMA" 2>/dev/null)
 
 decir "hay novedades: $(git rev-parse --short "$ANTES") → $(git rev-parse --short "$DESPUES")"
 
-# --ff-only: si las historias divergieron, mejor no hacer nada que inventar un merge.
+# Caso normal: la copia local no tiene commits propios, entra derecho.
 if ! git merge --ff-only "origin/$RAMA" >/dev/null 2>&1; then
-  decir "las historias divergieron; hace falta resolverlo a mano"; exit 0
+  # Las dos máquinas hicieron cambios. Como el árbol está limpio (se verificó
+  # arriba), se reapoyan los commits locales sobre los de la otra. Sin esto, la
+  # primera vez que alguien toca algo el actualizador se planta para siempre.
+  decir "hay commits de los dos lados: reapoyando los locales sobre origin/$RAMA"
+  if ! git rebase "origin/$RAMA" >/dev/null 2>&1; then
+    git rebase --abort >/dev/null 2>&1
+    decir "el reapoyo chocó (el mismo archivo cambiado en los dos lados): hace falta resolverlo a mano"
+    exit 0
+  fi
 fi
 
 volver_atras() {
