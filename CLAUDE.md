@@ -24,8 +24,9 @@ inglés y **alemán** avanzados, vive en **San Isidro** (Zona Norte).
 ## Arrancar y verificar
 
 ```bash
-./start.sh                                  # backend :8080 + frontend :3000
-cd backend && .venv/bin/python -m pytest    # 157 tests, deben pasar todos
+./ABRIR.command                             # todo en uno: instala si hace falta, busca y abre
+./start.sh                                  # sólo levantar (para desarrollo)
+cd backend && .venv/bin/python -m pytest    # 189 tests, deben pasar todos
 ```
 
 Frontend en **http://localhost:3000** (con el puerto; `localhost` a secas es el 80 y no hay nada).
@@ -60,7 +61,7 @@ frontend/src/app/     Hoy · Recientes · Top Picks · Empleos · Empresas · Al
                       (Next.js 14, TypeScript, Tailwind)
 ```
 
-**~11.800 líneas de Python, ~3.000 de TypeScript, 184 tests.**
+**~11.800 líneas de Python, ~3.000 de TypeScript, 189 tests.**
 
 ### Las tres vistas de empleos
 
