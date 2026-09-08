@@ -21,6 +21,50 @@ inglés y **alemán** avanzados, vive en **San Isidro** (Zona Norte).
 
 ---
 
+## Dos máquinas, un repo (leer antes de tocar código)
+
+El proyecto corre en **dos computadoras a la vez** y se sincroniza por
+`github.com/IriarteMateo/jobhunter` (privado). Cada una tiene su propia base de
+datos: el repo comparte **código**, nunca datos.
+
+En ambas hay un agente de macOS que cada 10 minutos corre `auto-update.sh`:
+trae lo nuevo, reinstala dependencias si cambiaron, **corre la suite de tests y
+revierte al commit anterior si falla**. La pantalla lo nota por `/api/version` y
+se recarga sola.
+
+### La regla que hay que respetar
+
+**Todo cambio se commitea y se sube.** No es una preferencia de estilo:
+`auto-update.sh` no actualiza si encuentra cambios locales sin commitear —
+pisarlos sería peor—, así que **un cambio a medias deja a esa máquina sin
+recibir nada más**, y sólo se entera quien mire `logs/auto-update.log`.
+
+Al terminar cualquier trabajo, en este orden:
+
+```bash
+cd backend && .venv/bin/python -m pytest    # 189 tests: si algo falla, no se sube
+cd .. && git add -A && git commit -m "…"
+git pull --rebase && git push
+```
+
+El `--rebase` no es opcional: si la otra máquina subió algo mientras tanto, sin
+eso el push se rechaza. Si el rebase choca —el mismo archivo tocado de los dos
+lados— hay que resolverlo a mano; es el único caso que la automatización no
+cubre, a propósito.
+
+### Qué NO hacer
+
+- **No dejar trabajo sin commitear** "para seguir mañana". Frena las
+  actualizaciones de esa máquina hasta que se cierre.
+- **No reescribir historia ya publicada** (`rebase -i`, `push --force`): le
+  rompe el clon a la otra persona.
+- **No subir con los tests en rojo.** Del otro lado el actualizador lo va a
+  revertir igual, así que sólo genera ruido.
+- **No commitear `.env`, bases (`*.db`) ni `.venv`.** Ya están en `.gitignore`;
+  si algo de eso aparece en `git status`, revisar por qué antes de agregarlo.
+
+---
+
 ## Arrancar y verificar
 
 ```bash
