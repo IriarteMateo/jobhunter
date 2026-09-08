@@ -31,7 +31,7 @@ morir() {
   exit 1
 }
 
-clear
+printf '\033[2J\033[H'
 cat <<'BANNER'
   ┌──────────────────────────────────────────┐
   │        AI  JOB  HUNTER                   │

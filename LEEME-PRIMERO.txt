@@ -1,66 +1,36 @@
-╭──────────────────────────────────────────────────────────────╮
-│                    A I   J O B   H U N T E R                 │
-╰──────────────────────────────────────────────────────────────╯
+╔══════════════════════════════════════════════════════════════╗
+║                  AI  JOB  HUNTER                             ║
+║          Buscador de empleos — cómo se usa                   ║
+╚══════════════════════════════════════════════════════════════╝
 
-  INSTALACIÓN — un solo paso
+  HACÉ DOBLE CLIC EN:   ABRIR.command
 
-
-  1. Abrí la app "Terminal"
-     (apretá Command + barra espaciadora, escribí Terminal, Enter)
-
-
-  2. Copiá y pegá ESTA LÍNEA COMPLETA, y apretá Enter:
+  Eso es todo. No hay nada más que hacer.
 
 
-Z=$(ls -t ~/Downloads/jobhunter*.zip ~/Desktop/jobhunter*.zip 2>/dev/null|head -1); unzip -oq "$Z" -d ~/Desktop && cd ~/Desktop/jobhunter-para-compartir && xattr -dr com.apple.quarantine . && ./INSTALAR.sh
+  ¿QUÉ PASA CUANDO LE DAS DOBLE CLIC?
+
+  Se abre una ventana negra (la Terminal) que va contando lo que
+  hace. La primera vez tarda entre 5 y 10 minutos porque instala
+  todo y busca empleos. Después abre sola en unos segundos.
+
+  Cuando termina, se abre el navegador con la app.
 
 
-  Listo. No hay que hacer nada más. Eso:
+  DOS COSAS PARA SABER
 
-     · descomprime todo y saca el bloqueo de macOS
-     · instala el motor de búsqueda y la interfaz
-     · BUSCA EMPLEOS POR PRIMERA VEZ (más de 70 fuentes reales)
-     · programa la búsqueda automática de las 07:30
-     · abre la app sola en el navegador
+  · No cierres la ventana negra mientras usés la app.
+    Para cerrar todo: Control + C ahí adentro.
 
-  Tarda entre 5 y 10 minutos. Podés dejarlo corriendo y hacer otra cosa.
-
-  Cuando termine se abre solo en:
-
-      http://localhost:3000
-
-      ← el ":3000" es obligatorio, sin eso no carga
+  · Si la ventana negra te pide instalar algo (Python o Node),
+    seguí lo que dice. Se instala una sola vez.
 
 
-  Para cerrar la app: Control + C en la ventana de Terminal.
-  Para volver a abrirla más adelante:
+  ¿ALGO SALIÓ MAL?
 
-      cd ~/Desktop/jobhunter-para-compartir && ./start.sh
+  La ventana negra nunca se cierra sola cuando hay un error:
+  siempre deja escrito qué pasó. Sacale una foto y mandala.
 
 
-────────────────────────────────────────────────────────────────
-  SI DICE "command not found: python3"  o  "node"
-────────────────────────────────────────────────────────────────
-
-  Faltan estos dos programas:
-
-     Python   →  https://www.python.org/downloads/
-     Node.js  →  https://nodejs.org/
-
-  Instalá los dos, cerrá la Terminal, abrila de nuevo y volvé a pegar
-  la línea de arriba.
-
-────────────────────────────────────────────────────────────────
-  ¿POR QUÉ NO ALCANZA CON HACER DOBLE CLIC?
-────────────────────────────────────────────────────────────────
-
-  Porque macOS bloquea los instaladores que llegan por WhatsApp o mail
-  y dice que están "dañados". No están dañados: es una protección.
-
-  Desde la Terminal no hay bloqueo, por eso este es el camino.
-  (El "xattr" de la línea es justamente lo que saca esa marca.)
-
-────────────────────────────────────────────────────────────────
-
-  Más detalle en SETUP.md
-  Si vas a tocar el código con Claude, leé CLAUDE.md
+  TODOS LOS DÍAS A LAS 07:30 busca empleos nuevos sola, aunque
+  no tengas la app abierta.
