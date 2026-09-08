@@ -449,3 +449,49 @@ def test_sort_columns_cover_every_score_shown_in_the_ui():
 
     assert {"final_score", "fit_score", "company_score", "career_score",
             "german", "date", "published"} == set(ORDER_COLUMNS)
+
+
+# --------------------------------------------------------------------------- #
+# EXPERIENCIA: los marcadores se comparan con límites de palabra
+# "0 years" matcheaba dentro de "more than 160 years of history" (la reseña
+# corporativa de BBVA), y un puesto que pedía 2 años quedaba como "no requiere
+# experiencia" y aparecía recomendado. Misma clase de bug que "intern" dentro
+# de "international".
+# --------------------------------------------------------------------------- #
+def test_la_antiguedad_de_la_empresa_no_se_lee_como_cero_experiencia():
+    from app.pipeline.experience import parse_experience
+
+    descripcion = (
+        "BBVA is a global company with more than 160 years of history that "
+        "operates in more than 25 countries. "
+        "Experiencia mínima de 2 años en posiciones vinculadas a contracargos, "
+        "fraude, adquirencia, medios de pago o fintech."
+    )
+
+    req = parse_experience("Analista de Contracargos", descripcion)
+
+    assert req.min_years == 2.0
+    assert req.accepts_no_experience is False
+
+
+def test_sigue_detectando_cero_experiencia_cuando_de_verdad_lo_dice():
+    from app.pipeline.experience import parse_experience
+
+    req = parse_experience("Analista Junior", "We ask for 0 years of experience. Sin experiencia previa.")
+
+    assert req.accepts_no_experience is True
+    assert req.min_years == 0.0
+
+
+def test_un_puesto_que_pide_anos_no_queda_elegible():
+    """El caso que reportó el usuario: avisos de 4 años apareciendo como aplicables."""
+    from app.pipeline.experience import parse_experience
+
+    req = parse_experience(
+        "Account Manager",
+        "Somos una empresa con 100 years of excellence. "
+        "Requiere un mínimo de 4 años de experiencia en ventas B2B.",
+    )
+
+    assert req.min_years == 4.0
+    assert req.accepts_no_experience is False

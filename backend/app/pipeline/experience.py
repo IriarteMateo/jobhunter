@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-from app.pipeline.text import searchable, sentences
+from app.pipeline.text import contains_any, searchable, sentences
 
 WORD_NUMBERS = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
@@ -106,8 +106,8 @@ def _to_num(token: str) -> float | None:
 def _classify_hardness(sentence: str) -> bool | None:
     """True=duro, False=preferencia, None=indeterminado."""
     low = sentence.lower()
-    soft = any(m in low for m in SOFT_MARKERS)
-    hard = any(m in low for m in HARD_MARKERS)
+    soft = contains_any(low, SOFT_MARKERS)
+    hard = contains_any(low, HARD_MARKERS)
     if soft and not hard:
         return False
     if soft and hard:
@@ -122,14 +122,14 @@ def parse_experience(title: str | None, description: str | None) -> ExperienceRe
     text = searchable(title, description)
     req = ExperienceRequirement()
 
-    if any(m in text for m in ZERO_EXPERIENCE_MARKERS):
+    if contains_any(text, ZERO_EXPERIENCE_MARKERS):
         req.accepts_no_experience = True
         req.min_years = 0.0
         req.evidence.append("menciona explícitamente que no requiere experiencia previa")
-    if any(m in text for m in STUDENT_GRADUATE_MARKERS):
+    if contains_any(text, STUDENT_GRADUATE_MARKERS):
         req.mentions_students = True
         req.evidence.append("dirigido a estudiantes / recién graduados")
-    if any(m in text for m in ENROLLED_ONLY_MARKERS):
+    if contains_any(text, ENROLLED_ONLY_MARKERS):
         req.enrolled_students_only = True
         req.evidence.append("pide estudiante actualmente cursando")
 

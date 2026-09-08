@@ -20,6 +20,11 @@ export function JobCard({ job, onChange }: { job: Job; onChange?: (job: Job) => 
   const analysis = current.analysis;
   const score = analysis?.final_score ?? 0;
   const tone = scoreTone(score);
+  // Las solapas Empresas, Empleos e Historial muestran avisos que NO pasan el
+  // filtro (pedido explícito: ver todo lo de una empresa). Si la tarjeta se
+  // dibuja igual que una recomendada, un puesto que pide 4 años parece
+  // aplicable. Acá se marca, y el botón de aplicar deja de ser el principal.
+  const noElegible = analysis != null && !analysis.eligible;
 
   async function toggleDetail() {
     if (!open && !detail) {
@@ -65,6 +70,11 @@ export function JobCard({ job, onChange }: { job: Job; onChange?: (job: Job) => 
                 🇩🇪 Alemán suma
               </span>
             )}
+            {noElegible && (
+              <span className="chip border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-300">
+                No cumplís los requisitos
+              </span>
+            )}
             {current.is_repost && <span className="chip-neutral">Republicado</span>}
             {current.status !== "NEW" && (
               <span className="chip-neutral">{STATUS_LABEL[current.status] ?? current.status}</span>
@@ -106,8 +116,14 @@ export function JobCard({ job, onChange }: { job: Job; onChange?: (job: Job) => 
             </div>
           )}
 
-          {analysis?.why_apply && (
-            <p className="mt-3 text-sm text-ink-700 dark:text-ink-200">{analysis.why_apply}</p>
+          {noElegible && analysis?.not_eligible_reason ? (
+            <p className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200">
+              Por qué no te lo recomendamos: {analysis.not_eligible_reason}.
+            </p>
+          ) : (
+            analysis?.why_apply && (
+              <p className="mt-3 text-sm text-ink-700 dark:text-ink-200">{analysis.why_apply}</p>
+            )
           )}
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -115,9 +131,9 @@ export function JobCard({ job, onChange }: { job: Job; onChange?: (job: Job) => 
               href={current.apply_url || current.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-accent"
+              className={noElegible ? "btn-ghost" : "btn-accent"}
             >
-              Aplicar ↗
+              {noElegible ? "Aplicar igual ↗" : "Aplicar ↗"}
             </a>
             <button className="btn-ghost" onClick={toggleDetail}>
               {open ? "Ocultar análisis" : "Ver análisis"}
