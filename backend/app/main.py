@@ -73,3 +73,26 @@ def health():
         "database": settings.database_url,
         "project_dir": str(BASE_DIR.parent),
     }
+
+
+@app.get("/api/version")
+def version():
+    """Commit que está corriendo ahora mismo.
+
+    La app se actualiza sola en segundo plano (`auto-update.sh` hace `git pull`
+    cada tanto). La pantalla consulta esto cada minuto y, cuando el commit
+    cambia, se recarga: así las mejoras aparecen sin que nadie toque nada.
+    """
+    import subprocess
+
+    from app.config import BASE_DIR
+
+    proyecto = BASE_DIR.parent
+    try:
+        commit = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=proyecto, capture_output=True, text=True, timeout=5,
+        ).stdout.strip()
+    except Exception:  # noqa: BLE001 - sin git la app funciona igual
+        commit = ""
+    return {"commit": commit or "sin-git"}

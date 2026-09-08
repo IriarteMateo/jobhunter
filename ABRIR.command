@@ -139,12 +139,22 @@ fi
 # ---------------------------------------------------------------------------
 # 4. Búsqueda automática diaria.
 # ---------------------------------------------------------------------------
-azul "4/5  Búsqueda automática de todos los días"
+azul "4/5  Automatismos"
 if [ -f "$HOME/Library/LaunchAgents/com.jobhunter.daily.plist" ]; then
-  ok "ya programada (07:30)"
+  ok "búsqueda diaria ya programada (07:30)"
 else
-  ./install-daily.sh >/dev/null 2>&1 && ok "programada para las 07:30" \
+  ./install-daily.sh >/dev/null 2>&1 && ok "búsqueda diaria programada (07:30)" \
     || info "no se pudo programar; la app funciona igual con el botón de buscar"
+fi
+
+# Las mejoras llegan solas desde GitHub. Sólo si la carpeta es un repo.
+if [ -d .git ]; then
+  if [ -f "$HOME/Library/LaunchAgents/com.jobhunter.autoupdate.plist" ]; then
+    ok "mejoras automáticas ya activadas"
+  else
+    ./install-auto-update.sh >/dev/null 2>&1 && ok "mejoras automáticas activadas" \
+      || info "no se pudieron activar; la app funciona igual"
+  fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -160,7 +170,9 @@ liberar() {
 liberar 8080
 liberar 3000
 
-( cd backend && .venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8080 --log-level warning ) >/dev/null 2>&1 &
+# --reload: cuando la actualización automática trae código nuevo, el backend
+# lo toma solo, sin cerrar y volver a abrir la app.
+( cd backend && .venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8080 --log-level warning --reload --reload-dir app ) >/dev/null 2>&1 &
 PID_BACK=$!
 ( cd frontend && npm run dev ) >/dev/null 2>&1 &
 PID_FRONT=$!
